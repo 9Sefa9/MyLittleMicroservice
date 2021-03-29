@@ -1,0 +1,24 @@
+services:
+  mongoservice:
+    container_name: MyMongoDB
+    restart: always
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - ./MongoDatabases:/data/db
+    networks:
+      - app-network
+      # environment:
+      # provide your credentials here
+      # - MONGO_INITDB_ROOT_USERNAME=root
+      # - MONGO_INITDB_ROOT_PASSWORD=1234
+  nodeservice:
+    build: ./NodeServer
+    container_name: NodeServer
+    image: node:latest
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
