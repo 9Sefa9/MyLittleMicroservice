@@ -1,5 +1,5 @@
+//App entry point - Main function
 const express = require('express');
-//const router = require('./routes/auth');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');

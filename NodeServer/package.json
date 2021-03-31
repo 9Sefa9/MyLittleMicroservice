@@ -1,10 +1,10 @@
 {
-  "name": "authenticationjwt",
+  "name": "mylittlemicroservice",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon app.js"
   },
   "author": "Sefa Gövercin",
   "license": "ISC",

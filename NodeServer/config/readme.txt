@@ -1,0 +1,1 @@
+This dir contains environment variables and configurations
