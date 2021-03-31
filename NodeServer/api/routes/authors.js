@@ -12,11 +12,14 @@ router.get('/', (req, res, next) => {
 });
 
 /**
- * GET request to /authors/:_id
+ * GET request to /authors/id
+ * req.query is used for search query parameters 
+ * (i.e. everything after ? in http://something.com/path?foo=var)
  */
-router.get('/id', (req, res, next) => {
+router.get('/:id', (req, res, next) => {
+    const id = req.params.id;
     res.status(200).json({
-        message: 'Author with id'+req.body('id')+' was fetch'
+        message: 'Author was fetch '+id
     });
 });
 

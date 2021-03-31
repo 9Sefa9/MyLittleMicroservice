@@ -17,6 +17,8 @@ services:
     build: ./NodeServer
     container_name: NodeServer
     image: node:latest
+    ports:
+      - 3121:3121
     networks:
       - app-network
 networks:

@@ -3,6 +3,7 @@
 //Self created SSL was accomplished by this command: 
 //sudo openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout ./selfsigned.key -out selfsigned.crt
 const express = require('express');
+const app = require('./app.js');
 const https = require('https');
 const fs = require('fs');
 const {port} = require('./config/index.js');
@@ -14,7 +15,6 @@ var options = {
   cert: cert
 };
 
-app = express()
 app.get('/', (req, res) => {
    res.send({message:"Initial Page"});
 });

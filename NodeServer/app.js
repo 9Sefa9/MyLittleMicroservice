@@ -7,7 +7,10 @@ const {mongoUrl} = require('./config/index');
 const authorsRoutes = require('./api/routes/authors');
 const booksRoutes = require('./api/routes/books');
 
-mongoose.connect(mongoUrl);
+mongoose.connect(mongoUrl,
+    { useNewUrlParser: true, useUnifiedTopology: true }, 
+    (error,client)=>{console.log("Database connection established ? : "+client)});
+
 mongoose.Promise = global.Promise;
 
 app.use(express.json());
