@@ -1,47 +1,34 @@
-//App entry point - Main function
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+const {mongoUrl} = require('./config/index');
 
-//Importing routes:
-//const authRoute = require('./routes/auth');
-//const postRoute = require('./routes/posts');
+//routes 
+const authorsRoutes = require('./api/routes/authors');
+const booksRoutes = require('./api/routes/books');
 
-//environment setup
-dotenv.config();
+mongoose.connect(mongoUrl);
+mongoose.Promise = global.Promise;
 
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
+}));
 
-
-
-//connect to database:
-//model needed.
-//mongoose.connect(process.env.DB_CONNECTION_URL,
-//    { useNewUrlParser: true, useUnifiedTopology: true }, 
-//    (error)=>{console.log("DB CONNECTION ESTABLISHED ? : "+error)});
-
-var MongoClient = require('mongodb').MongoClient;
-console.log("Start:")
-MongoClient.connect("mongodb://mongoservice:27017/",{useNewUrlParser: true,useUnifiedTopology:true},function(err, client) {
-  if (err) throw err;
-  var query = {"_id": 2};
-  var db = client.db('MongolianData');
-  db.collection("myNewCollection").find(query).toArray(function(err, result) {
-    if (err) throw err;
-    console.log(result);
-    client.close();
-  });
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    if (req.method === "OPTIONS") {
+      res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+      return res.status(200).json({});
+    }
+    next();
 });
 
+app.use('/authors', authorsRoutes);
+app.use('/books', booksRoutes);
 
-//Middleware
-app.use(express.json());
-
-//Route middleware: when access to /api/user. do "authRoute". 
-//in this case, the requests or responses are taken from auth.js  
-//app.use('/api/user', authRoute);
-//app.use('/api/posts', postRoute);
-
-//app.listen(3121, ()=>console.log("Server started"));
-
-
+module.exports = app;

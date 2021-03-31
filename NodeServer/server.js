@@ -5,10 +5,10 @@
 const express = require('express');
 const https = require('https');
 const fs = require('fs');
-const port = 3121;
+const {port} = require('./config/index.js');
 
-var key = fs.readFileSync(__dirname + '/selfsigned.key');
-var cert = fs.readFileSync(__dirname + '/selfsigned.crt');
+var key = fs.readFileSync(__dirname + '/config/selfsigned.key');
+var cert = fs.readFileSync(__dirname + '/config/selfsigned.crt');
 var options = {
   key: key,
   cert: cert
@@ -16,11 +16,11 @@ var options = {
 
 app = express()
 app.get('/', (req, res) => {
-   res.send("Initial Page");
+   res.send({message:"Initial Page"});
 });
 
 var server = https.createServer(options, app);
 
 server.listen(port, () => {
-  console.log("server startffing on port : " + port)
+  console.log("server starting on port : " + port)
 });

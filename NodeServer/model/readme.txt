@@ -1,1 +1,0 @@
-This dir contains Database Models. For Example: Schema's(Mongoose)
