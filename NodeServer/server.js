@@ -15,10 +15,6 @@ var options = {
   cert: cert
 };
 
-app.get('/', (req, res) => {
-   res.send({message:"Initial Page"});
-});
-
 var server = https.createServer(options, app);
 
 server.listen(port, () => {

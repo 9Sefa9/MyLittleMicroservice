@@ -2,10 +2,11 @@ const mongoose = require('mongoose');
 const Author = require('../../models/Author');
 
 module.exports = {
-    createAuthor: async (name) => {
+    createAuthor: async (name,books) => {
         const author = new Author({
             _id: new mongoose.Types.ObjectId(),
-            name: name
+            name: name,
+            books: books
         });
         try {
             const newAuthorEntry = await author.save()
@@ -20,6 +21,7 @@ module.exports = {
     },
  
     getAllAuthors: async() => {
-        // ...
+        const allAuthors = await Author.find();
+        return allAuthors;
     }
 }

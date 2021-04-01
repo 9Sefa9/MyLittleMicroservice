@@ -5,9 +5,11 @@ const authorController = require('../controllers/author');
 /**
  * GET request to /authors
  */
-router.get('/', (req, res, next) => {
+router.get('/',async (req, res, next) => {
+    const author = await authorController.getAllAuthors();
     res.status(200).json({
-        message: 'All Authors were fetched'
+        message: 'All Authors were fetched',
+        author
     });
 });
 
@@ -24,11 +26,12 @@ router.get('/:id', (req, res, next) => {
 });
 
 /**
- * POST create /author
- */
+ * PUT:  Used to create a resource, or overwrite it. While you specify the resources new URL.
+ * POST: Used to modify and update a resource   
+*/
 
 router.post("/", async (req, res, next) => {
-    const author = await authorController.createAuthor(req.body.name)
+    const author = await authorController.createAuthor(req.body.name, req.body.books)
     res.status(201).json({
         message: "Created successfully",
         author

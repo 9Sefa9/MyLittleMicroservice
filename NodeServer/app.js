@@ -2,21 +2,20 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const {mongoUrl} = require('./config/index');
-
-//routes 
 const authorsRoutes = require('./api/routes/authors');
 const booksRoutes = require('./api/routes/books');
-
-mongoose.connect(mongoUrl,
-    { useNewUrlParser: true, useUnifiedTopology: true }, 
-    (error,client)=>{console.log("Database connection established ? : "+client)});
-
-mongoose.Promise = global.Promise;
 
 app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }));
+
+mongoose.connect(mongoUrl,
+  {useNewUrlParser: true, useUnifiedTopology: true },
+  (data)=>{console.log("Database connection established ? : "+data)}
+);
+
+mongoose.Promise = global.Promise;
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
